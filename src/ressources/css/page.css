@@ -1,0 +1,29 @@
+.page {
+    -fx-background-image:url('../img/page.png');
+}
+
+.text-field, .text-area, .button {
+    -fx-background-color: transparent;
+    -fx-border-color: #303030;
+    -fx-text-fill: #000000;
+    -fx-border-width: 5 ;
+    -fx-border-insets: 20px;
+    -fx-border-style: segments(10)  line-cap round ;
+    -fx-border-radius: 10 ;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+#title {
+    -fx-padding: -5px;
+}

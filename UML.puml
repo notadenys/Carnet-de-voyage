@@ -1,0 +1,109 @@
+@startuml
+
+abstract class carnet.Page{
+- int nbPage
+
++ int getNbPage()
++ void setNbPage()
+}
+
+class carnet.DayPage extends carnet.Page{
+- String title
+- String text
+
++ String getTitle
++ String getText
+}
+
+class carnet.Cover extends carnet.Page{
+- List collaborators
+- String author
+
++ void setAuthor()
++ void addColaborator()
+}
+
+class carnet.CarnetDeVoyage extends carnet.SujetObserve{
+- String name
+- String date
+
++ void addPage()
++ void deletePage()
++ String getName()
++ String getDate()
++ void export()
++ int getNbPages()
+}
+
+class carnet.SujetObserve{
++ void ajouterObservateur(Observateur)
++ void notifierObservateurs()
+}
+
+class carnet.Application extends carnet.SujetObserve
+{
++ void addCarnet()
++ void deleteCarnet()
++ void loadCarnet()
++ void editCarnet()
++ int getNbPages()
+}
+
+
+
+interface controller.Observateur{ 
++ void reagir()
+}
+
+class controller.AppController implements controller.Observateur
+{
+- Text title
+- Image add
+- Image import
+- Image edit
+- Image delete
+- Hbox carnet
+- Image select
+
+- int currentPage
+
++ void reagir()
++ int getCurrentPage()
+}
+
+class controller.CoverController implements controller.Observateur
+{
+- Text text
+- Image left
+- Image right
+- Image home
+- Image export
+
++ void reagir()
+}
+
+class controller.DayPageController implements controller.Observateur
+{
+- Text text
+- Image left
+- Image right
+- Image home
+- Image export
+
+- int currentPage
+
+
++ void reagir()
++ int getCurrentPage()
+}
+
+
+CarnetDeVoyage --"1" Cover
+CarnetDeVoyage --"*" DayPage
+Application --"*" CarnetDeVoyage
+SujetObserve --"*" Observateur
+CoverController --"1" Cover
+DayPageController --"1" DayPage
+AppController --"1" Application
+
+@enduml
