@@ -10,6 +10,8 @@
     -fx-border-insets: 20px;
     -fx-border-style: segments(10)  line-cap round ;
     -fx-border-radius: 10 ;
+    -fx-highlight-fill: null;
+    -fx-highlight-text-fill: null;
 }
 
 .text-area .scroll-pane {
