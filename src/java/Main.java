@@ -14,10 +14,7 @@ public class Main extends Application
         loader.setLocation(getClass().getResource("/xml/carnet.fxml"));
         Carnet carnet = new Carnet();
         PageController pc = new PageController(carnet);
-        loader.setControllerFactory(c -> {
-            if (c.equals(controller.PageController.class)) return pc;
-            else return null;
-        });
+        loader.setController(pc);
 
         Parent root = loader.load();
         Scene scene = new Scene(root);

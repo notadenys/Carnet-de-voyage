@@ -4,7 +4,10 @@ public class PageDay extends Page{
     private String title;
     private String text;
 
-    public PageDay() {}
+    public PageDay() {
+        title = "Title";
+        text = "Text";
+    }
 
     public void setTitle(String title) {this.title = title;
         System.out.println(this.title);}

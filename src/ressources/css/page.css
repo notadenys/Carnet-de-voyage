@@ -2,7 +2,7 @@
     -fx-background-image:url('../img/page.png');
 }
 
-.text-field, .text-area, .button {
+#title, .text-area, #photo-button {
     -fx-background-color: transparent;
     -fx-border-color: #303030;
     -fx-text-fill: #000000;
