@@ -1,5 +1,5 @@
 import carnet.Carnet;
-import controller.PageController;
+import controller.DayPageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +13,7 @@ public class Main extends Application
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/xml/carnet.fxml"));
         Carnet carnet = new Carnet();
-        PageController pc = new PageController(carnet);
+        DayPageController pc = new DayPageController(carnet);
         loader.setController(pc);
 
         Parent root = loader.load();

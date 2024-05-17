@@ -10,15 +10,24 @@ public class Carnet extends SujetObserve{
     {
         super();
         pages = new ArrayList<>();
-        pages.add(new PageDay());
-        pages.add(new PageDay());
+        pages.add(new DayPage());
+        pages.add(new DayPage());
         currentPage = 1;
     }
 
-    public void setCurrentPage(int page) { currentPage = page; }
-    public int getCurrentPage()
-    {
-        return currentPage;
+    public void nextPage() {
+        currentPage++;
     }
-    public PageDay getCurrentPageDay() { return (PageDay) pages.get(currentPage); }
+    public void previousPage() {
+        currentPage--;
+    }
+
+    public void createPage() {
+        pages.add(new DayPage());
+    }
+
+    public void setCurrentPage(int page) { currentPage = page; }
+    public int getCurrentPage() { return currentPage; }
+    public int getNbPages() { return pages.size(); }
+    public DayPage getCurrentDayPage() { return (DayPage) pages.get(currentPage-1); }
 }
