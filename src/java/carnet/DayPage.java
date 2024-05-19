@@ -7,8 +7,8 @@ public class DayPage extends Page{
     private boolean existsPhoto;
 
     public DayPage() {
-        title = "Add Title";
-        text = "Write your notes here...";
+        title = "";
+        text = "";
         photo = "";
         existsPhoto = false;
     }

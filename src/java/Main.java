@@ -11,7 +11,7 @@ public class Main extends Application
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/xml/carnet.fxml"));
+        loader.setLocation(getClass().getResource("/xml/dayPage.fxml"));
         Carnet carnet = new Carnet();
         DayPageController pc = new DayPageController(carnet);
         loader.setController(pc);

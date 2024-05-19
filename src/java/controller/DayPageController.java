@@ -143,8 +143,11 @@ public class DayPageController implements Observateur {
     @Override
     public void reagir() {
         DayPage page = carnet.getCurrentDayPage();
-        title.setText(page.getTitle());
-        description.setText(page.getText());
+        if (title.getText().isEmpty()) title.setPromptText("Add Title");
+        else title.setText(page.getTitle());
+        if (description.getText().isEmpty()) description.setPromptText("Write your notes here...");
+        else description.setText(page.getTitle());
+
         pageNumber.setText(carnet.getCurrentPage() + "/" + carnet.getNbPages());
 
         if (page.getExistsPhoto()) {
