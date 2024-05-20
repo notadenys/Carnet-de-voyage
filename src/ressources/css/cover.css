@@ -2,14 +2,9 @@
     -fx-background-image:url('../img/page.png');
 }
 
-#title, .text-area, #photo-button {
+#title, #author, #participants{
     -fx-background-color: transparent;
-    -fx-border-color: #303030;
     -fx-text-fill: #000000;
-    -fx-border-width: 5 ;
-    -fx-border-insets: 20px;
-    -fx-border-style: segments(10)  line-cap round ;
-    -fx-border-radius: 10 ;
     -fx-prompt-text-fill: black;
 }
 
@@ -25,6 +20,6 @@
     -fx-background-color: transparent;
 }
 
-#title {
-    -fx-padding: -5px;
+.date-picker .text-field{
+    -fx-font: 20px "Arial";
 }

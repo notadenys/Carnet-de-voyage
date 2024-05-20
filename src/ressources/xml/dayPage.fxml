@@ -61,7 +61,7 @@
             </StackPane>
          </children>
       </GridPane>
-      <GridPane prefHeight="116.0" prefWidth="700.0">
+      <GridPane prefHeight="120.0" prefWidth="700.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />

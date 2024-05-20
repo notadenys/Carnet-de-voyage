@@ -1,8 +1,13 @@
 package carnet;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Carnet extends SujetObserve{
+    private String title;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
     private final ArrayList<Page> pages;
     private int currentPage;
 
@@ -10,7 +15,7 @@ public class Carnet extends SujetObserve{
     {
         super();
         pages = new ArrayList<>();
-        pages.add(new DayPage());
+        pages.add(new Cover());
         pages.add(new DayPage());
         currentPage = 1;
     }
@@ -27,7 +32,26 @@ public class Carnet extends SujetObserve{
     }
 
     public void setCurrentPage(int page) { currentPage = page; }
-    public int getCurrentPage() { return currentPage; }
+    public int getCurrentPageNb() { return currentPage; }
     public int getNbPages() { return pages.size(); }
-    public DayPage getCurrentDayPage() { return (DayPage) pages.get(currentPage-1); }
+    public Page getCurrentPage() { return pages.get(currentPage-1); }
+
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
 }

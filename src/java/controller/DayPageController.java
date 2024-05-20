@@ -4,6 +4,9 @@ import carnet.Carnet;
 import carnet.DayPage;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -13,10 +16,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class DayPageController implements Observateur {
     @FXML
@@ -34,10 +39,11 @@ public class DayPageController implements Observateur {
     @FXML
     private ImageView rightArrow;
 
-
+    private final Stage stage;
     private final Carnet carnet;
 
-    public DayPageController(Carnet carnet) {
+    public DayPageController(Stage stage, Carnet carnet) {
+        this.stage = stage;
         this.carnet = carnet;
         carnet.addObserver(this);
     }
@@ -48,8 +54,7 @@ public class DayPageController implements Observateur {
      */
     @FXML
     private void initialize() throws FileNotFoundException {
-        pageNumber.setText(carnet.getCurrentPage() + "/" + carnet.getNbPages());
-
+        pageNumber.setText(carnet.getCurrentPageNb() + "/" + carnet.getNbPages());
         setArrows();
     }
 
@@ -74,11 +79,11 @@ public class DayPageController implements Observateur {
      */
     private void setPhoto(String photoURL)
     {
-        carnet.getCurrentDayPage().setPhoto(photoURL);
+        ((DayPage)carnet.getCurrentPage()).setPhoto(photoURL);
         Image image = new Image(photoURL);
         photo.setFill(new ImagePattern(image));
         imgButton.setText("");
-        carnet.getCurrentDayPage().setPhoto(photoURL);
+        ((DayPage)carnet.getCurrentPage()).setPhoto(photoURL);
     }
 
     /**
@@ -87,7 +92,10 @@ public class DayPageController implements Observateur {
     @FXML
     public void turnPageLeft(){
         savePage();
-        if (carnet.getCurrentPage() > 1) carnet.previousPage();
+        carnet.previousPage();
+        if (carnet.getCurrentPageNb() == 1) {
+            switchScenes();
+        }
         carnet.notifyObservers();
     }
 
@@ -97,9 +105,9 @@ public class DayPageController implements Observateur {
     @FXML
     public void turnPageRight(){
         savePage();
-        if (carnet.getCurrentPage() < carnet.getNbPages()) {
+        if (carnet.getCurrentPageNb() < carnet.getNbPages()) {
             carnet.nextPage();
-        } else if (!carnet.getCurrentDayPage().equals(new DayPage())){
+        } else if (!((DayPage)carnet.getCurrentPage()).equals(new DayPage())) {
             carnet.createPage();
             carnet.nextPage();
         }
@@ -110,9 +118,26 @@ public class DayPageController implements Observateur {
      * saves the page to the model
      */
     private void savePage(){
-        DayPage dayPage = carnet.getCurrentDayPage();
+        DayPage dayPage = (DayPage)carnet.getCurrentPage();
         dayPage.setTitle(title.getText());
         dayPage.setText(description.getText());
+    }
+
+    private void switchScenes() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/xml/cover.fxml"));
+        CoverController cc = new CoverController(stage, carnet);
+        loader.setController(cc);
+
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
@@ -120,16 +145,11 @@ public class DayPageController implements Observateur {
      */
     private void setArrows() {
         try {
-            Image leftArrowImage;
-            if (carnet.getCurrentPage() == 1) {
-                leftArrowImage = new Image(new FileInputStream("src/ressources/img/left-arrow-disabled.png"));
-            } else {
-                leftArrowImage = new Image(new FileInputStream("src/ressources/img/left-arrow.png"));
-            }
+            Image leftArrowImage = new Image(new FileInputStream("src/ressources/img/left-arrow.png"));
             leftArrow.setImage(leftArrowImage);
 
             Image rightArrowImage;
-            if (carnet.getCurrentPage() == carnet.getNbPages()) {
+            if (carnet.getCurrentPageNb() == carnet.getNbPages()) {
                 rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow-add.png"));
             } else {
                 rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow.png"));
@@ -142,20 +162,21 @@ public class DayPageController implements Observateur {
 
     @Override
     public void reagir() {
-        DayPage page = carnet.getCurrentDayPage();
-        if (title.getText().isEmpty()) title.setPromptText("Add Title");
-        else title.setText(page.getTitle());
-        if (description.getText().isEmpty()) description.setPromptText("Write your notes here...");
-        else description.setText(page.getTitle());
+        if (carnet.getCurrentPageNb() > 1)
+        {
+            DayPage page = (DayPage)carnet.getCurrentPage();
+            title.setText(page.getTitle());
+            description.setText(page.getText());
+            pageNumber.setText(carnet.getCurrentPageNb() + "/" + carnet.getNbPages());
 
-        pageNumber.setText(carnet.getCurrentPage() + "/" + carnet.getNbPages());
-
-        if (page.getExistsPhoto()) {
-            setPhoto(page.getPhoto());
-        } else {
-            photo.setFill(null);
-            imgButton.setText("Add Image");
+            if (page.getExistsPhoto()) {
+                setPhoto(page.getPhoto());
+            } else {
+                photo.setFill(null);
+                imgButton.setText("Add Image");
+            }
+            setArrows();
         }
-        setArrows();
+
     }
 }

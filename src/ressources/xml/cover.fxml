@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="700.0" styleClass="page" stylesheets="@../css/cover.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField id="title" fx:id="title" alignment="CENTER" promptText="TITLE">
+         <font>
+            <Font name="Chilanka Regular" size="150.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets top="200.0" />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="-30.0" />
+         </padding>
+      </TextField>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <DatePicker fx:id="startDatePicker" prefHeight="40.0" prefWidth="180.0" promptText="START" />
+            <Label contentDisplay="CENTER" prefHeight="491.0" prefWidth="66.0" text=" - ">
+               <font>
+                  <Font name="Chilanka Regular" size="70.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets top="-10.0" />
+               </HBox.margin>
+            </Label>
+            <DatePicker fx:id="endDatePicker" prefHeight="40.0" prefWidth="180.0" promptText="END" />
+         </children>
+         <VBox.margin>
+            <Insets top="-10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="71.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/author.png" />
+               </image>
+            </ImageView>
+            <TextField id="author" fx:id="author" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="510.0" promptText="Add Author">
+               <font>
+                  <Font name="Chilanka Regular" size="50.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="15.0" right="10.0" />
+               </padding>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="TOP_RIGHT" prefHeight="300.0" prefWidth="700.0">
+         <children>
+            <ImageView fitHeight="56.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/co-authors.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="-5.0" top="25.0" />
+               </HBox.margin>
+            </ImageView>
+            <TextArea id="participants" fx:id="participants" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="510.0" promptText="Add Participants" wrapText="true">
+               <font>
+                  <Font name="Chilanka Regular" size="50.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="-15.0" />
+               </padding>
+            </TextArea>
+         </children>
+      </HBox>
+      <GridPane prefHeight="120.0" prefWidth="700.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <GridPane alignment="CENTER" prefWidth="48.0" GridPane.columnIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="pageNumber" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="150.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Chilanka Regular" size="70.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="rightArrow" fitHeight="45.0" fitWidth="50.0" onMouseClicked="#turnPageRight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../img/right-arrow.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="leftArrow" fitHeight="45.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../img/left-arrow-disabled.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</VBox>

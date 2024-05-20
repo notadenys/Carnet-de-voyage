@@ -1,4 +1,5 @@
 import carnet.Carnet;
+import controller.CoverController;
 import controller.DayPageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +12,10 @@ public class Main extends Application
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/xml/dayPage.fxml"));
+        loader.setLocation(getClass().getResource("/xml/cover.fxml"));
         Carnet carnet = new Carnet();
-        DayPageController pc = new DayPageController(carnet);
-        loader.setController(pc);
+        CoverController cc = new CoverController(stage, carnet);
+        loader.setController(cc);
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
