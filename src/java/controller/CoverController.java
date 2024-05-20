@@ -2,7 +2,6 @@ package controller;
 
 import carnet.Carnet;
 import carnet.Cover;
-import carnet.DayPage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -46,6 +46,26 @@ public class CoverController implements Observateur{
     @FXML
     private void initialize() {
         pageNumber.setText("1/" + carnet.getNbPages());
+        adjustFontSize();
+    }
+
+    @FXML
+    private void adjustFontSize() {
+        double maxWidth = title.getWidth();
+        double minFontSize = 12.0; // Minimum allowed font size
+        double maxFontSize = 150.0; // Maximum allowed font size
+
+        // Calculate target font size based on text length
+        double targetFontSize = Math.max(minFontSize, calculateFontSize(title.getText(), maxWidth));
+        // Gradually adjust font size towards the target
+        double currentFontSize = title.getFont().getSize();
+        double adjustment = (targetFontSize - currentFontSize) / 3.8; // Adjust in steps of 0.2
+
+        title.setFont(Font.font(title.getFont().getName(), Math.min(currentFontSize + adjustment, maxFontSize)));
+    }
+
+    private double calculateFontSize(String text, double maxWidth) {
+        return maxWidth / Math.abs(text.length() - 3);
     }
 
     /**
@@ -98,6 +118,7 @@ public class CoverController implements Observateur{
             author.setText(cover.getAuthor());
             participants.setText(cover.getParticipants());
             pageNumber.setText("1/" + carnet.getNbPages());
+
         }
     }
 }
