@@ -114,6 +114,14 @@ public class DayPageController implements Observateur {
         carnet.notifyObservers();
     }
 
+    @FXML
+    public void goToCover() {
+        savePage();
+        carnet.setCurrentPage(1);
+        switchScenes();
+        carnet.notifyObservers();
+    }
+
     /**
      * saves the page to the model
      */

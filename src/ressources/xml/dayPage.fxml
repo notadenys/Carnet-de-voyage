@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -65,7 +66,7 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -90,6 +91,22 @@
                   <ImageView fx:id="leftArrow" fitHeight="45.0" fitWidth="50.0" onMouseClicked="#turnPageLeft" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
+            <ImageView fx:id="home" fitHeight="71.0" fitWidth="62.0" onMouseClicked="#goToCover" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/home.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@../img/export-file.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets bottom="5.0" right="15.0" />
+               </GridPane.margin>
+            </ImageView>
          </children>
       </GridPane>
    </children>
