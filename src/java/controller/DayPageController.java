@@ -7,12 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
@@ -38,6 +36,8 @@ public class DayPageController implements Observateur {
     private ImageView leftArrow;
     @FXML
     private ImageView rightArrow;
+    @FXML
+    private Slider emotions;
 
     private final Stage stage;
     private final Carnet carnet;
@@ -54,7 +54,9 @@ public class DayPageController implements Observateur {
      */
     @FXML
     private void initialize() throws FileNotFoundException {
-        pageNumber.setText(carnet.getCurrentPageNb() + "/" + carnet.getNbPages());
+        DayPage page = ((DayPage)carnet.getCurrentPage());
+        pageNumber.setText(page.getNbPage() + "/" + carnet.getNbPages());
+        emotions.setValue(page.getEmotions());
         setArrows();
     }
 
@@ -79,11 +81,12 @@ public class DayPageController implements Observateur {
      */
     private void setPhoto(String photoURL)
     {
-        ((DayPage)carnet.getCurrentPage()).setPhoto(photoURL);
+        DayPage page = ((DayPage)carnet.getCurrentPage());
+        page.setPhoto(photoURL);
         Image image = new Image(photoURL);
         photo.setFill(new ImagePattern(image));
         imgButton.setText("");
-        ((DayPage)carnet.getCurrentPage()).setPhoto(photoURL);
+        page.setPhoto(photoURL);
     }
 
     /**
@@ -105,9 +108,10 @@ public class DayPageController implements Observateur {
     @FXML
     public void turnPageRight(){
         savePage();
-        if (carnet.getCurrentPageNb() < carnet.getNbPages()) {
+        DayPage page = ((DayPage)carnet.getCurrentPage());
+        if (page.getNbPage() < carnet.getNbPages()) {
             carnet.nextPage();
-        } else if (!((DayPage)carnet.getCurrentPage()).equals(new DayPage())) {
+        } else if (!page.equals(new DayPage(page.getNbPage()))) {
             carnet.createPage();
             carnet.nextPage();
         }
@@ -125,10 +129,11 @@ public class DayPageController implements Observateur {
     /**
      * saves the page to the model
      */
-    private void savePage(){
+    private void savePage() {
         DayPage dayPage = (DayPage)carnet.getCurrentPage();
         dayPage.setTitle(title.getText());
         dayPage.setText(description.getText());
+        dayPage.setEmotions((int) emotions.getValue());
     }
 
     private void switchScenes() {
@@ -176,8 +181,9 @@ public class DayPageController implements Observateur {
             title.setText(page.getTitle());
             description.setText(page.getText());
             pageNumber.setText(carnet.getCurrentPageNb() + "/" + carnet.getNbPages());
+            emotions.setValue(page.getEmotions());
 
-            if (page.getExistsPhoto()) {
+            if (!page.getPhoto().isEmpty()) {
                 setPhoto(page.getPhoto());
             } else {
                 photo.setFill(null);

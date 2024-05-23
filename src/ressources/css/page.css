@@ -2,7 +2,7 @@
     -fx-background-image:url('../img/page.png');
 }
 
-#title, .text-area, #photo-button {
+#title, .text-area, #photo-button, #evaluation {
     -fx-background-color: transparent;
     -fx-border-color: #303030;
     -fx-text-fill: #000000;
@@ -27,4 +27,20 @@
 
 #title {
     -fx-padding: -5px;
+}
+
+#slider .track{
+    -fx-background-color: black;
+    -fx-pref-height: 4px;
+}
+
+#slider .thumb {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+}
+
+.slider .axis .axis-tick-mark {
+    -fx-stroke: black;
+    -fx-stroke-width: 2px;
 }

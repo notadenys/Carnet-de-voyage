@@ -74,8 +74,8 @@ public class CoverController implements Observateur{
     @FXML
     public void turnPageRight(){
         savePage();
-        switchScenes();
         carnet.nextPage();
+        switchScenes();
         carnet.notifyObservers();
     }
 

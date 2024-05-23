@@ -16,7 +16,7 @@ public class Carnet extends SujetObserve{
         super();
         pages = new ArrayList<>();
         pages.add(new Cover());
-        pages.add(new DayPage());
+        pages.add(new DayPage(pages.size()+1));
         currentPage = 1;
     }
 
@@ -28,13 +28,15 @@ public class Carnet extends SujetObserve{
     }
 
     public void createPage() {
-        pages.add(new DayPage());
+        pages.add(new DayPage(pages.size()+1));
     }
 
     public void setCurrentPage(int page) { currentPage = page; }
     public int getCurrentPageNb() { return currentPage; }
     public int getNbPages() { return pages.size(); }
-    public Page getCurrentPage() { return pages.get(currentPage-1); }
+    public Page getCurrentPage() {
+        return pages.get(currentPage-1);
+    }
 
     public String getTitle() {
         return title;

@@ -4,13 +4,14 @@ public class DayPage extends Page{
     private String title;
     private String text;
     private String photo;
-    private boolean existsPhoto;
+    private int emotions;
 
-    public DayPage() {
+    public DayPage(int nbPage) {
+        super(nbPage);
         title = "";
         text = "";
         photo = "";
-        existsPhoto = false;
+        emotions = 0;
     }
 
     /**
@@ -19,16 +20,14 @@ public class DayPage extends Page{
      */
     public void setPhoto(String photo) {
         this.photo = photo;
-        setExistsPhoto(true);
     }
-
     public void setTitle(String title) {this.title = title;}
     public void setText(String text) {this.text = text;}
     public String getTitle() {return title;}
     public String getText() {return text;}
     public String getPhoto() {return photo;}
-    public boolean getExistsPhoto() {return existsPhoto;}
-    public void setExistsPhoto(boolean existsPhoto) {this.existsPhoto = existsPhoto;}
+    public int getEmotions() {return emotions;}
+    public void setEmotions(int emotions) {this.emotions = emotions;}
 
     /**
      * Compare if page equals to a page given in parameter
@@ -36,6 +35,9 @@ public class DayPage extends Page{
      * @return true if equals
      */
     public boolean equals(DayPage p) {
-        return title.equals(p.getTitle()) && text.equals(p.getText()) && photo.equals(p.getPhoto());
+        return title.equals(p.getTitle()) &&
+                text.equals(p.getText()) &&
+                photo.equals(p.getPhoto()) &&
+                emotions == p.getEmotions();
     }
 }

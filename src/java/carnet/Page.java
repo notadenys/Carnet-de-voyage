@@ -3,7 +3,7 @@ package carnet;
 public abstract class Page extends SujetObserve {
     private int nbPage;
 
-    public Page() {}
+    public Page(int nbPage) { this.nbPage = nbPage; }
 
     public int getNbPage() {
         return nbPage;

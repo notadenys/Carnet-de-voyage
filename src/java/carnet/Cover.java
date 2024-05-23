@@ -6,6 +6,7 @@ public class Cover extends Page{
 
 
     public Cover() {
+        super(1);
         this.author = "";
         this.participants = "";
     }
