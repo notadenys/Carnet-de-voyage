@@ -18,7 +18,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="700.0" styleClass="page" stylesheets="@../css/page.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField id="title" fx:id="title" alignment="TOP_CENTER" promptText="Add Title" styleClass="text-field">
+      <TextField id="title" fx:id="title" alignment="TOP_CENTER" onKeyTyped="#checkArrows" promptText="Add Title" styleClass="text-field">
          <font>
             <Font name="Chilanka Regular" size="63.0" />
          </font>
@@ -26,7 +26,7 @@
             <Insets />
          </opaqueInsets>
       </TextField>
-      <TextArea fx:id="description" prefHeight="500.0" promptText="Write your notes here..." styleClass="text-area" wrapText="true">
+      <TextArea fx:id="description" onKeyTyped="#checkArrows" prefHeight="500.0" promptText="Write your notes here..." styleClass="text-area" wrapText="true">
          <font>
             <Font name="Chilanka Regular" size="30.0" />
          </font>
@@ -68,7 +68,7 @@
                         <Font name="Chilanka Regular" size="35.0" />
                      </font>
                   </Label>
-                  <Slider id="slider" fx:id="emotions" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="0" prefHeight="38.0" prefWidth="256.0" showTickMarks="true" snapToTicks="true" GridPane.rowIndex="2" />
+                  <Slider id="slider" fx:id="emotions" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="0" onMouseReleased="#checkArrows" prefHeight="38.0" prefWidth="256.0" showTickMarks="true" snapToTicks="true" GridPane.rowIndex="2" />
                   <GridPane prefHeight="65.0" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
