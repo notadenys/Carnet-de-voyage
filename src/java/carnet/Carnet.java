@@ -1,22 +1,21 @@
 package carnet;
 
-import java.time.LocalDate;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 
 public class Carnet extends SujetObserve{
-    private String title;
-    private LocalDate startDate;
-    private LocalDate endDate;
-
-    private final ArrayList<Page> pages;
+    private final Cover cover;
+    private final ArrayList<DayPage> pages;
     private int currentPage;
 
     public Carnet()
     {
         super();
+        cover = new Cover();
         pages = new ArrayList<>();
-        pages.add(new Cover());
-        pages.add(new DayPage(pages.size()+1));
+        pages.add(new DayPage(2));
         currentPage = 1;
     }
 
@@ -28,32 +27,22 @@ public class Carnet extends SujetObserve{
     }
 
     public void createPage() {
-        pages.add(new DayPage(pages.size()+1));
+        pages.add(new DayPage(pages.size() + 2));
     }
 
     public void setCurrentPage(int page) { currentPage = page; }
     public int getCurrentPageNb() { return currentPage; }
-    public int getNbPages() { return pages.size(); }
-    public Page getCurrentPage() {
-        return pages.get(currentPage-1);
+    public int getNbPages() { return pages.size() + 1; }
+    public DayPage getCurrentPage() {
+        return pages.get(currentPage - 2);
+    }
+    public Cover getCover() {
+        return cover;
     }
 
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void export() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(pages);
+        System.out.println(json);
     }
 }

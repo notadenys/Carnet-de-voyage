@@ -2,6 +2,7 @@ package controller;
 
 import carnet.Carnet;
 import carnet.Cover;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -34,6 +36,9 @@ public class CoverController implements Observateur{
     @FXML
     private ImageView rightArrow;
 
+    @FXML
+    private VBox background;  // to change focus at the beginning
+
     private final Stage stage;
     private final Carnet carnet;
 
@@ -45,14 +50,16 @@ public class CoverController implements Observateur{
 
     @FXML
     private void initialize() {
+        Platform.runLater( () -> background.requestFocus());  // to not highlight the title
         pageNumber.setText("1/" + carnet.getNbPages());
         adjustFontSize();
     }
 
+
     @FXML
     private void adjustFontSize() {
         double maxWidth = title.getWidth();
-        double minFontSize = 12.0; // Minimum allowed font size
+        double minFontSize = 20.0; // Minimum allowed font size
         double maxFontSize = 150.0; // Maximum allowed font size
 
         // Calculate target font size based on text length
@@ -83,12 +90,16 @@ public class CoverController implements Observateur{
      * saves the page to the model
      */
     private void savePage(){
-        Cover cover = (Cover) carnet.getCurrentPage();
-        carnet.setTitle(title.getText());
+        Cover cover = carnet.getCover();
+        cover.setTitle(title.getText());
         cover.setAuthor(author.getText());
         cover.setParticipants(participants.getText());
-        carnet.setStartDate(startDatePicker.getValue());
-        carnet.setEndDate(endDatePicker.getValue());
+        if (startDatePicker.getValue() != null) {
+            cover.setStartDate(startDatePicker.getValue());
+        }
+        if (endDatePicker.getValue() != null) {
+            cover.setEndDate(endDatePicker.getValue());
+        }
     }
 
     private void switchScenes() {
@@ -111,14 +122,18 @@ public class CoverController implements Observateur{
     @Override
     public void reagir() {
         if (carnet.getCurrentPageNb() == 1) {
-            Cover cover = (Cover) carnet.getCurrentPage();
-            title.setText(carnet.getTitle());
-            startDatePicker.setValue(carnet.getStartDate());
-            endDatePicker.setValue(carnet.getEndDate());
+            Cover cover = carnet.getCover();
+            title.setText(cover.getTitle());
             author.setText(cover.getAuthor());
             participants.setText(cover.getParticipants());
             pageNumber.setText("1/" + carnet.getNbPages());
 
+            if (cover.getStartDate() != null) {
+                startDatePicker.setValue(cover.getStartDate());
+            }
+            if (cover.getEndDate() != null) {
+                endDatePicker.setValue(cover.getEndDate());
+            }
         }
     }
 }

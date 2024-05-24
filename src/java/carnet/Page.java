@@ -1,6 +1,6 @@
 package carnet;
 
-public abstract class Page extends SujetObserve {
+public abstract class Page {
     private int nbPage;
 
     public Page(int nbPage) { this.nbPage = nbPage; }

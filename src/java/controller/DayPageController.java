@@ -2,6 +2,7 @@ package controller;
 
 import carnet.Carnet;
 import carnet.DayPage;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -10,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
@@ -39,6 +40,9 @@ public class DayPageController implements Observateur {
     @FXML
     private Slider emotions;
 
+    @FXML
+    private VBox background;  // to change focus at the beginning
+
     private final Stage stage;
     private final Carnet carnet;
 
@@ -54,7 +58,9 @@ public class DayPageController implements Observateur {
      */
     @FXML
     private void initialize() throws FileNotFoundException {
-        DayPage page = ((DayPage)carnet.getCurrentPage());
+        Platform.runLater( () -> background.requestFocus());  // to not highlight the title
+
+        DayPage page = carnet.getCurrentPage();
         pageNumber.setText(page.getNbPage() + "/" + carnet.getNbPages());
         emotions.setValue(page.getEmotions());
         setArrows();
@@ -86,9 +92,8 @@ public class DayPageController implements Observateur {
      * sets selected photo in its place on a screen
      * @param photoURL
      */
-    private void setPhoto(String photoURL)
-    {
-        DayPage page = ((DayPage)carnet.getCurrentPage());
+    private void setPhoto(String photoURL) {
+        DayPage page = carnet.getCurrentPage();
         page.setPhoto(photoURL);
         Image image = new Image(photoURL);
         photo.setFill(new ImagePattern(image));
@@ -100,7 +105,7 @@ public class DayPageController implements Observateur {
      * saves current page and goes to the previous one (if exists)
      */
     @FXML
-    public void turnPageLeft(){
+    public void turnPageLeft() {
         savePage();
         carnet.previousPage();
         if (carnet.getCurrentPageNb() == 1) {
@@ -113,9 +118,9 @@ public class DayPageController implements Observateur {
      * saves current page and either goes to next or creates a new page
      */
     @FXML
-    public void turnPageRight(){
+    public void turnPageRight() {
         savePage();
-        DayPage page = ((DayPage)carnet.getCurrentPage());
+        DayPage page = carnet.getCurrentPage();
         if (page.getNbPage() < carnet.getNbPages()) {
             carnet.nextPage();
         } else if (!page.equals(new DayPage(page.getNbPage()))) {
@@ -133,11 +138,17 @@ public class DayPageController implements Observateur {
         carnet.notifyObservers();
     }
 
+    @FXML
+    public void export() {
+        savePage();
+        carnet.export();
+    }
+
     /**
      * saves the page to the model
      */
     private void savePage() {
-        DayPage dayPage = (DayPage)carnet.getCurrentPage();
+        DayPage dayPage = carnet.getCurrentPage();
         dayPage.setTitle(title.getText());
         dayPage.setText(description.getText());
         dayPage.setEmotions((int) emotions.getValue());
@@ -169,7 +180,7 @@ public class DayPageController implements Observateur {
             leftArrow.setImage(leftArrowImage);
 
             Image rightArrowImage;
-            DayPage page = ((DayPage)carnet.getCurrentPage());
+            DayPage page = (carnet.getCurrentPage());
             if (carnet.getCurrentPageNb() == carnet.getNbPages()) {
                 if (page.equals(new DayPage(page.getNbPage()))) {
                     rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow-disabled.png"));
@@ -189,7 +200,7 @@ public class DayPageController implements Observateur {
     public void reagir() {
         if (carnet.getCurrentPageNb() > 1)
         {
-            DayPage page = (DayPage)carnet.getCurrentPage();
+            DayPage page = carnet.getCurrentPage();
             title.setText(page.getTitle());
             description.setText(page.getText());
             pageNumber.setText(carnet.getCurrentPageNb() + "/" + carnet.getNbPages());
