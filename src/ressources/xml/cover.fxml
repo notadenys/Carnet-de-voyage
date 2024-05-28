@@ -32,7 +32,7 @@
       </TextField>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <DatePicker fx:id="startDatePicker" prefHeight="40.0" prefWidth="180.0" promptText="START" />
+            <DatePicker fx:id="startDatePicker" onAction="#setMinDate" prefHeight="40.0" prefWidth="180.0" promptText="START" />
             <Label contentDisplay="CENTER" prefHeight="491.0" prefWidth="66.0" text=" - ">
                <font>
                   <Font name="Chilanka Regular" size="70.0" />
@@ -47,7 +47,7 @@
                   <Insets top="-10.0" />
                </HBox.margin>
             </Label>
-            <DatePicker fx:id="endDatePicker" prefHeight="40.0" prefWidth="180.0" promptText="END" />
+            <DatePicker fx:id="endDatePicker" onAction="#setMaxDate" prefHeight="40.0" prefWidth="180.0" promptText="END" />
          </children>
          <VBox.margin>
             <Insets top="-10.0" />

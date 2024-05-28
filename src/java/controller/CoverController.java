@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import outils.DateChecker;
 
 import java.io.IOException;
 
@@ -84,6 +85,16 @@ public class CoverController implements Observateur{
         carnet.nextPage();
         switchScenes();
         carnet.notifyObservers();
+    }
+
+    @FXML
+    public void setMinDate() {
+        DateChecker.setEndDateBounds(endDatePicker, startDatePicker.getValue());
+    }
+
+    @FXML
+    public void setMaxDate() {
+        DateChecker.setBeginDateBounds(startDatePicker, endDatePicker.getValue());
     }
 
     /**
