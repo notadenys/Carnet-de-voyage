@@ -1,14 +1,13 @@
 package carnet;
 
-public abstract class Page {
-    private int nbPage;
+import outils.IndexGenerator;
 
-    public Page(int nbPage) { this.nbPage = nbPage; }
+public abstract class Page {
+    private final int nbPage;
+
+    public Page() { this.nbPage = IndexGenerator.getInstance().getIndex(); }
 
     public int getNbPage() {
         return nbPage;
-    }
-    public void setNbPage(int nbPage) {
-        this.nbPage = nbPage;
     }
 }

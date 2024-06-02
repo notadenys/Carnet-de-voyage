@@ -7,17 +7,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import outils.DateChecker;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class CoverController implements Observateur{
     @FXML
@@ -52,6 +52,16 @@ public class CoverController implements Observateur{
     @FXML
     private void initialize() {
         Platform.runLater( () -> background.requestFocus());  // to not highlight the title
+        stage.setOnCloseRequest(e -> {
+            short saveBeforeExit = verifyCarnet();
+            if (saveBeforeExit == 1) {
+                export();
+                Platform.runLater(stage::close);
+            } else if (saveBeforeExit == 0) {
+                Platform.exit();
+            }
+        });
+
         pageNumber.setText("1/" + carnet.getNbPages());
         adjustFontSize();
     }
@@ -113,6 +123,46 @@ public class CoverController implements Observateur{
         }
     }
 
+    @FXML
+    public void load() {
+        verifyCarnet();
+    }
+
+    private short verifyCarnet() {
+        savePage();
+        if (!carnet.isNew()) {
+            Alert alert =
+                    new Alert(Alert.AlertType.WARNING,
+                            "Your data will be lost. Do you want to save your diary before exit?",
+                            ButtonType.YES,
+                            ButtonType.NO,
+                            ButtonType.CANCEL);
+            alert.setTitle("Data lost warning");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.isPresent()) {
+                if (result.get() == ButtonType.YES) {
+                    return 1;
+                } else if (result.get() == ButtonType.NO) {
+                    return 0;
+                } else if (result.get() == ButtonType.CANCEL) {
+                    return -1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    private void export() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose an location");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            carnet.export(file.getAbsolutePath());
+        }
+    }
+
     private void switchScenes() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/xml/dayPage.fxml"));
@@ -141,9 +191,11 @@ public class CoverController implements Observateur{
 
             if (cover.getStartDate() != null) {
                 startDatePicker.setValue(cover.getStartDate());
+                DateChecker.setBeginDateBounds(endDatePicker, startDatePicker.getValue());
             }
             if (cover.getEndDate() != null) {
                 endDatePicker.setValue(cover.getEndDate());
+                DateChecker.setEndDateBounds(endDatePicker, startDatePicker.getValue());
             }
         }
     }

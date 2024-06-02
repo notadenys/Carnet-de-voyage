@@ -123,7 +123,7 @@ public class DayPageController implements Observateur {
         DayPage page = carnet.getCurrentPage();
         if (page.getNbPage() < carnet.getNbPages()) {
             carnet.nextPage();
-        } else if (!page.equals(new DayPage(page.getNbPage()))) {
+        } else if (!page.equals(new DayPage())) {
             carnet.createPage();
             carnet.nextPage();
         }
@@ -141,7 +141,13 @@ public class DayPageController implements Observateur {
     @FXML
     public void export() {
         savePage();
-        carnet.export();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose an location");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            carnet.export(file.getAbsolutePath());
+        }
     }
 
     /**
@@ -182,7 +188,7 @@ public class DayPageController implements Observateur {
             Image rightArrowImage;
             DayPage page = (carnet.getCurrentPage());
             if (carnet.getCurrentPageNb() == carnet.getNbPages()) {
-                if (page.equals(new DayPage(page.getNbPage()))) {
+                if (page.equals(new DayPage())) {
                     rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow-disabled.png"));
                 } else {
                     rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow-add.png"));

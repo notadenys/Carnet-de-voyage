@@ -3,10 +3,16 @@
     -fx-background-size: cover;
 }
 
-#title, #author, #participants{
+#author, #participants{
     -fx-background-color: transparent;
-    -fx-text-fill: #000000;
+    -fx-text-fill: black;
     -fx-prompt-text-fill: black;
+}
+
+#title{
+    -fx-background-color: transparent;
+    -fx-text-fill: linear-gradient(to top, #A67C00 -7.62%, #FFD700 14.51%, #FFECB3 32.4%, #FFD700 84.95%, #A67C00 106.96%);
+    -fx-prompt-text-fill: linear-gradient(to top, #A67C00 -7.62%, #FFD700 14.51%, #FFECB3 32.4%, #FFD700 84.95%, #A67C00 106.96%);
 }
 
 .text-area .scroll-pane {

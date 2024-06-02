@@ -6,8 +6,8 @@ public class DayPage extends Page{
     private String photo;
     private int emotions;
 
-    public DayPage(int nbPage) {
-        super(nbPage);
+    public DayPage() {
+        super();
         title = "";
         text = "";
         photo = "";

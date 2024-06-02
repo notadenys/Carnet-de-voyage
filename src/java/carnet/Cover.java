@@ -11,7 +11,7 @@ public class Cover extends Page{
 
 
     public Cover() {
-        super(1);
+        super();
         title = "";
         startDate = "";
         endDate = "";
@@ -55,5 +55,15 @@ public class Cover extends Page{
     }
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Cover &&
+                title.equals(((Cover) o).title) &&
+                startDate.equals(((Cover) o).startDate) &&
+                endDate.equals(((Cover) o).endDate) &&
+                author.equals((((Cover) o).author)) &&
+                participants.equals(((Cover) o).participants);
     }
 }

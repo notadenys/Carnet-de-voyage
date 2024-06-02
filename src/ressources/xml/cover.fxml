@@ -100,7 +100,7 @@
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -133,6 +133,22 @@
                   </ImageView>
                </children>
             </GridPane>
+            <ImageView fitHeight="71.0" fitWidth="70.0" onMouseClicked="#load" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@../img/import.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets bottom="5.0" right="15.0" />
+               </GridPane.margin>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/new.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets left="25.0" top="5.0" />
+               </GridPane.margin>
+            </ImageView>
          </children>
       </GridPane>
    </children>
