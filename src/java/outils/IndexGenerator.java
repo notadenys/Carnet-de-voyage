@@ -20,4 +20,6 @@ public class IndexGenerator {
     }
 
     public int getIndex() { return index++; }
+
+    public void reset() { index = 1; }
 }

@@ -12,7 +12,7 @@ public class DateChecker {
     }
 
     public static void setBeginDateBounds(DatePicker begin_date, LocalDate end_date ){
-        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
 
             @Override
             public DateCell call(final DatePicker datePicker) {
@@ -22,10 +22,10 @@ public class DateChecker {
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
                         boolean cond = !item.isBefore(end_date);
-                        if (cond){
+                        if (cond) {
                             setDisable(true);
                             setStyle("-fx-background-color: #d3d3d3;");
-                        }else{
+                        } else {
                             setDisable(false);
                             setStyle("-fx-background-color: #CCFFFF;");
                             setStyle("-fx-font-fill: black;");
@@ -38,7 +38,7 @@ public class DateChecker {
     }
 
     public static void setEndDateBounds(DatePicker end_date, LocalDate begin_date ){
-        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
 
             @Override
             public DateCell call(final DatePicker datePicker) {
@@ -48,10 +48,10 @@ public class DateChecker {
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
                         boolean cond = !item.isAfter(begin_date);
-                        if (cond){
+                        if (cond) {
                             setDisable(true);
                             setStyle("-fx-background-color: #d3d3d3;");
-                        }else{
+                        } else {
                             setDisable(false);
                             setStyle("-fx-background-color: #CCFFFF;");
                             setStyle("-fx-font-fill: black;");

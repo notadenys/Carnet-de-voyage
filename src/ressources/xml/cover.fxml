@@ -141,7 +141,7 @@
                   <Insets bottom="5.0" right="15.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fitHeight="71.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="71.0" fitWidth="60.0" onMouseClicked="#createNew" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/new.png" />
                </image>

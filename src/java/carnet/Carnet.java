@@ -2,10 +2,12 @@ package carnet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import outils.IndexGenerator;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Carnet extends SujetObserve{
@@ -49,13 +51,23 @@ public class Carnet extends SujetObserve{
 
     public boolean isNew() { return this.equals(new Carnet()); }
 
-    private void copyCarnet(Carnet carnet) {
+    public void copyCarnet(Carnet carnet) {
+        IndexGenerator.getInstance().reset();
         Cover newCover = carnet.getCoverPage();
         Cover thisCover = this.getCoverPage();
         thisCover.setTitle(newCover.getTitle());
         thisCover.setAuthor(newCover.getAuthor());
-        thisCover.setStartDate(newCover.getStartDate());
-        thisCover.setEndDate(newCover.getEndDate());
+
+        if (newCover.getStartDate() != null) {
+            thisCover.setStartDate(newCover.getStartDate());
+        } else {
+            thisCover.emptyStartDate();
+        }
+        if (newCover.getEndDate() != null) {
+            thisCover.setEndDate(newCover.getEndDate());
+        } else {
+            thisCover.emptyEndDate();
+        }
         thisCover.setParticipants(newCover.getParticipants());
 
         this.pages = carnet.getPages();
@@ -87,7 +99,13 @@ public class Carnet extends SujetObserve{
             return false;
         }
         for (DayPage page : pages) {
-            if (!page.equals(carnet.getPage(page.getNbPage()))) {
+            boolean found = false;
+            for (DayPage otherPage : carnet.getPages()) {
+                if (page.equals(otherPage)) {
+                    found = true;
+                }
+            }
+            if (!found) {
                 return false;
             }
         }

@@ -17,6 +17,7 @@ import outils.DateChecker;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class CoverController implements Observateur{
@@ -129,6 +130,18 @@ public class CoverController implements Observateur{
         verifyCarnet();
     }
 
+    @FXML
+    public void createNew() {
+        short saveBeforeNew = verifyCarnet();
+        if (saveBeforeNew == 1) {
+            export();
+            carnet.copyCarnet(new Carnet());
+        } else if (saveBeforeNew == 0) {
+            carnet.copyCarnet(new Carnet());
+        }
+        Platform.runLater( () -> background.requestFocus());
+    }
+
     private short verifyCarnet() {
         savePage();
         if (!carnet.isNew()) {
@@ -193,10 +206,16 @@ public class CoverController implements Observateur{
             if (cover.getStartDate() != null) {
                 startDatePicker.setValue(cover.getStartDate());
                 DateChecker.setBeginDateBounds(endDatePicker, startDatePicker.getValue());
+            } else {
+                DateChecker.setBeginDateBounds(startDatePicker, LocalDate.MAX);
+                startDatePicker.getEditor().clear();
             }
             if (cover.getEndDate() != null) {
                 endDatePicker.setValue(cover.getEndDate());
                 DateChecker.setEndDateBounds(endDatePicker, startDatePicker.getValue());
+            } else {
+                DateChecker.setEndDateBounds(endDatePicker, LocalDate.MIN);
+                endDatePicker.getEditor().clear();
             }
         }
     }

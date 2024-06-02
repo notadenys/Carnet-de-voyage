@@ -57,6 +57,9 @@ public class Cover extends Page{
         this.endDate = endDate.toString();
     }
 
+    public void emptyStartDate() { startDate = ""; }
+    public void emptyEndDate() { endDate = ""; }
+
     @Override
     public boolean equals(Object o) {
         return o instanceof Cover &&
