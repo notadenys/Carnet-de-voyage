@@ -53,6 +53,7 @@ public class CoverController implements Observateur{
     private void initialize() {
         Platform.runLater( () -> background.requestFocus());  // to not highlight the title
         stage.setOnCloseRequest(e -> {
+            e.consume();
             short saveBeforeExit = verifyCarnet();
             if (saveBeforeExit == 1) {
                 export();
