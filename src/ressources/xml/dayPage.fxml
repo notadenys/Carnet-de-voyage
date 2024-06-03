@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -25,11 +26,25 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <tooltip>
+            <Tooltip text="Add title to the page">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Tooltip>
+         </tooltip>
       </TextField>
       <TextArea fx:id="description" onKeyTyped="#checkArrows" prefHeight="500.0" promptText="Write your notes here..." styleClass="text-area" wrapText="true">
          <font>
             <Font name="Chilanka Regular" size="30.0" />
          </font>
+         <tooltip>
+            <Tooltip text="Your notes from the day">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Tooltip>
+         </tooltip>
       </TextArea>
       <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="700.0" stylesheets="@../css/page.css">
         <columnConstraints>
@@ -50,6 +65,13 @@
                      <font>
                         <Font name="Chilanka Regular" size="40.0" />
                      </font>
+                     <tooltip>
+                        <Tooltip text="Click to add new image to the page">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Tooltip>
+                     </tooltip>
                   </Button>
                </children>
             </StackPane>
@@ -68,7 +90,14 @@
                         <Font name="Chilanka Regular" size="35.0" />
                      </font>
                   </Label>
-                  <Slider id="slider" fx:id="emotions" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="0" onMouseReleased="#checkArrows" prefHeight="38.0" prefWidth="256.0" showTickMarks="true" snapToTicks="true" GridPane.rowIndex="2" />
+                  <Slider id="slider" fx:id="emotions" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="0" onMouseReleased="#checkArrows" prefHeight="38.0" prefWidth="256.0" showTickMarks="true" snapToTicks="true" GridPane.rowIndex="2">
+                     <tooltip>
+                        <Tooltip text="Put the slider to the corresponding emotion">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Tooltip>
+                     </tooltip></Slider>
                   <GridPane prefHeight="65.0" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -149,7 +178,7 @@
                   <Insets left="25.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fitHeight="71.0" fitWidth="70.0" onMouseClicked="#export" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <ImageView fx:id="export" fitHeight="71.0" fitWidth="70.0" onMouseClicked="#export" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="@../img/export-file.png" />
                </image>

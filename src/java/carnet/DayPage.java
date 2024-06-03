@@ -14,7 +14,6 @@ public class DayPage extends Page{
         text = "";
         photo = "";
         emotions = 0;
-        System.out.println("HUI");
     }
 
     /**

@@ -22,46 +22,90 @@ public class Carnet extends SujetObserve{
         savedCarnetImage = null;
     }
 
+    /**
+     * switch to the next page
+     */
     public void nextPage() {
         currentPage++;
     }
+
+    /**
+     * switch to the previous page
+     */
     public void previousPage() {
         currentPage--;
     }
 
+    /**
+     * create a new page
+     */
     public void createPage() {
         pages.add(new DayPage(pages.size()+2));
     }
 
+    /**
+     * @param page page number to set as current
+     */
     public void setCurrentPage(int page) { currentPage = page; }
+
+    /**
+     * @return current page number
+     */
     public int getCurrentPageNb() { return currentPage; }
+
+    /**
+     * @return amount of pages in a diary
+     */
     public int getNbPages() { return pages.size() + 1; }
+
+    /**
+     * @return current page
+     */
     public DayPage getCurrentPage() {
         return pages.get(currentPage - 2);
     }
+
+    /**
+     * @return cover page of the diary
+     */
     public Cover getCover() {
         return cover;
     }
 
+    /**
+     * @return ArrayList with all the pages
+     */
     public ArrayList<DayPage> getPages() { return pages; }
-    public Cover getCoverPage() { return cover; }
 
+    /**
+     * @return true if diary is not changed, false otherwise
+     */
     public boolean isNew() {
         boolean equals = this.equals(new Carnet());
         System.gc();
         return equals;
     }
+
+    /**
+     * @return true if diary is saved after last modification, false otherwise
+     */
     public boolean isSaved() { return this.equals(savedCarnetImage); }
+
+    /**
+     *
+     */
     public void saveCarnetImage() {
+        // to avoid infinite loop in a constructor
         if (savedCarnetImage == null) {
             savedCarnetImage = new Carnet();
         }
+
         savedCarnetImage.copyCarnet(this);
     }
 
     public void copyCarnet(Carnet carnet) {
-        Cover newCover = carnet.getCoverPage();
-        Cover thisCover = this.getCoverPage();
+        Cover newCover = carnet.getCover();
+        Cover thisCover = this.getCover();
         thisCover.setTitle(newCover.getTitle());
         thisCover.setAuthor(newCover.getAuthor());
 

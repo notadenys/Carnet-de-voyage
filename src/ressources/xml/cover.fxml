@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -29,10 +30,24 @@
          <padding>
             <Insets bottom="-30.0" />
          </padding>
+         <tooltip>
+            <Tooltip text="Add a title to your diary">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Tooltip>
+         </tooltip>
       </TextField>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <DatePicker fx:id="startDatePicker" onAction="#setMinDate" prefHeight="40.0" prefWidth="180.0" promptText="START" />
+            <DatePicker fx:id="startDatePicker" onAction="#setMinDate" prefHeight="40.0" prefWidth="180.0" promptText="START">
+               <tooltip>
+                  <Tooltip text="Set start date">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip></DatePicker>
             <Label contentDisplay="CENTER" prefHeight="491.0" prefWidth="66.0" text=" - ">
                <font>
                   <Font name="Chilanka Regular" size="70.0" />
@@ -47,7 +62,14 @@
                   <Insets top="-10.0" />
                </HBox.margin>
             </Label>
-            <DatePicker fx:id="endDatePicker" onAction="#setMaxDate" prefHeight="40.0" prefWidth="180.0" promptText="END" />
+            <DatePicker fx:id="endDatePicker" onAction="#setMaxDate" prefHeight="40.0" prefWidth="180.0" promptText="END">
+               <tooltip>
+                  <Tooltip text="Set end date">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip></DatePicker>
          </children>
          <VBox.margin>
             <Insets top="-10.0" />
@@ -70,6 +92,13 @@
                <padding>
                   <Insets left="15.0" right="10.0" />
                </padding>
+               <tooltip>
+                  <Tooltip text="Add an author of the diary">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
             </TextField>
          </children>
       </HBox>
@@ -93,6 +122,13 @@
                <padding>
                   <Insets left="-15.0" />
                </padding>
+               <tooltip>
+                  <Tooltip text="Add who participated in the voyage">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
             </TextArea>
          </children>
       </HBox>
@@ -133,7 +169,7 @@
                   </ImageView>
                </children>
             </GridPane>
-            <ImageView fitHeight="71.0" fitWidth="70.0" onMouseClicked="#load" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <ImageView fx:id="loadCarnet" fitHeight="71.0" fitWidth="70.0" onMouseClicked="#load" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="@../img/import.png" />
                </image>
@@ -141,7 +177,7 @@
                   <Insets bottom="5.0" right="15.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fitHeight="71.0" fitWidth="60.0" onMouseClicked="#createNew" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="newCarnet" fitHeight="71.0" fitWidth="60.0" onMouseClicked="#createNew" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/new.png" />
                </image>

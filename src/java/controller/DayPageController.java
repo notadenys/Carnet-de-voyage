@@ -39,6 +39,10 @@ public class DayPageController implements Observateur {
     private ImageView rightArrow;
     @FXML
     private Slider emotions;
+    @FXML
+    private ImageView home;
+    @FXML
+    private ImageView export;
 
     @FXML
     private VBox background;  // to change focus at the beginning
@@ -64,6 +68,11 @@ public class DayPageController implements Observateur {
         pageNumber.setText(page.getNbPage() + "/" + carnet.getNbPages());
         emotions.setValue(page.getEmotions());
         setArrows();
+
+        Tooltip.install(leftArrow, new Tooltip("Turn page left"));
+        Tooltip.install(rightArrow, new Tooltip("Turn page right"));
+        Tooltip.install(home, new Tooltip("Return to the cover"));
+        Tooltip.install(export, new Tooltip("Export to a JSON file"));
     }
 
     /**

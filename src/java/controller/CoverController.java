@@ -38,6 +38,10 @@ public class CoverController implements Observateur{
     private ImageView leftArrow;
     @FXML
     private ImageView rightArrow;
+    @FXML
+    private ImageView newCarnet;
+    @FXML
+    private ImageView loadCarnet;
 
     @FXML
     private VBox background;  // to change focus at the beginning
@@ -69,6 +73,11 @@ public class CoverController implements Observateur{
 
         title.textProperty().addListener((observable, oldValue, newValue) -> adjustFontSize(title, 20, 150));
         adjustFontSize(title, 20, 150);
+
+        Tooltip.install(leftArrow, new Tooltip("Turn page left"));
+        Tooltip.install(rightArrow, new Tooltip("Turn page right"));
+        Tooltip.install(newCarnet, new Tooltip("Create a new carnet"));
+        Tooltip.install(loadCarnet, new Tooltip("Import a new carnet from JSON"));
     }
 
 
