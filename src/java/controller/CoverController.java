@@ -111,7 +111,16 @@ public class CoverController implements Observateur{
 
     @FXML
     public void load() {
-        //verifyCarnet();
+        short saveBeforeImport = verifyCarnet();
+        if (saveBeforeImport == 1) {
+            export();
+            loadCarnet();
+        } else if (saveBeforeImport == 0) {
+            loadCarnet();
+        }
+    }
+
+    private void loadCarnet() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose a JSON file");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
@@ -135,14 +144,14 @@ public class CoverController implements Observateur{
 
     private short verifyCarnet() {
         savePage();
-        if (!carnet.isNew()) {
+        if (!carnet.isNew() && !carnet.isSaved()) {
             Alert alert =
                     new Alert(Alert.AlertType.WARNING,
-                            "Your data will be lost. Do you want to save your diary before exit?",
+                            "Your data will be lost. Do you want to save your diary?",
                             ButtonType.YES,
                             ButtonType.NO,
                             ButtonType.CANCEL);
-            alert.setTitle("Data lost warning");
+            alert.setTitle("Data loss warning");
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.isPresent()) {

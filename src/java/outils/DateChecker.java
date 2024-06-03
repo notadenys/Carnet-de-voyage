@@ -8,8 +8,7 @@ import java.time.LocalDate;
 
 public class DateChecker {
 
-    private DateChecker(){
-    }
+    private DateChecker(){}
 
     public static void setBeginDateBounds(DatePicker begin_date, LocalDate end_date ){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {

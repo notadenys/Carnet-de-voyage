@@ -6,12 +6,15 @@ public class DayPage extends Page{
     private String photo;
     private int emotions;
 
-    public DayPage() {
-        super();
+    public static final DayPage newPage = new DayPage(0);
+
+    public DayPage(int nbPage) {
+        super(nbPage);
         title = "";
         text = "";
         photo = "";
         emotions = 0;
+        System.out.println("HUI");
     }
 
     /**

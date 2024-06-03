@@ -16,5 +16,8 @@ public class SujetObserve {
     public void notifyObservers()
     {
         observers.forEach(Observateur::reagir);
+
+        // to not leave too much dead objects in the system
+        System.gc();
     }
 }

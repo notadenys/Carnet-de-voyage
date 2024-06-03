@@ -54,7 +54,7 @@ public class DayPageController implements Observateur {
 
     /**
      * initial function to set up all the components
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if file not found
      */
     @FXML
     private void initialize() throws FileNotFoundException {
@@ -90,7 +90,6 @@ public class DayPageController implements Observateur {
 
     /**
      * sets selected photo in its place on a screen
-     * @param photoURL
      */
     private void setPhoto(String photoURL) {
         DayPage page = carnet.getCurrentPage();
@@ -123,7 +122,7 @@ public class DayPageController implements Observateur {
         DayPage page = carnet.getCurrentPage();
         if (page.getNbPage() < carnet.getNbPages()) {
             carnet.nextPage();
-        } else if (!page.equals(new DayPage())) {
+        } else if (!page.equals(DayPage.newPage)) {
             carnet.createPage();
             carnet.nextPage();
         }
@@ -188,7 +187,7 @@ public class DayPageController implements Observateur {
             Image rightArrowImage;
             DayPage page = (carnet.getCurrentPage());
             if (carnet.getCurrentPageNb() == carnet.getNbPages()) {
-                if (page.equals(new DayPage())) {
+                if (page.equals(DayPage.newPage)) {
                     rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow-disabled.png"));
                 } else {
                     rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow-add.png"));

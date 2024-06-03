@@ -11,7 +11,7 @@ public class Cover extends Page{
 
 
     public Cover() {
-        super();
+        super(1);
         title = "";
         startDate = "";
         endDate = "";

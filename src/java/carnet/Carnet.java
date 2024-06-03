@@ -2,7 +2,6 @@ package carnet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import outils.IndexGenerator;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,14 +10,16 @@ public class Carnet extends SujetObserve{
     private final Cover cover;
     private ArrayList<DayPage> pages;
     private int currentPage;
+    private Carnet savedCarnetImage;
 
     public Carnet()
     {
         super();
         cover = new Cover();
         pages = new ArrayList<>();
-        pages.add(new DayPage());
+        pages.add(new DayPage(2));
         currentPage = 1;
+        savedCarnetImage = null;
     }
 
     public void nextPage() {
@@ -29,7 +30,7 @@ public class Carnet extends SujetObserve{
     }
 
     public void createPage() {
-        pages.add(new DayPage());
+        pages.add(new DayPage(pages.size()+2));
     }
 
     public void setCurrentPage(int page) { currentPage = page; }
@@ -43,13 +44,22 @@ public class Carnet extends SujetObserve{
     }
 
     public ArrayList<DayPage> getPages() { return pages; }
-    public DayPage getPage(int page) { return pages.get(page-2); }
     public Cover getCoverPage() { return cover; }
 
-    public boolean isNew() { return this.equals(new Carnet()); }
+    public boolean isNew() {
+        boolean equals = this.equals(new Carnet());
+        System.gc();
+        return equals;
+    }
+    public boolean isSaved() { return this.equals(savedCarnetImage); }
+    public void saveCarnetImage() {
+        if (savedCarnetImage == null) {
+            savedCarnetImage = new Carnet();
+        }
+        savedCarnetImage.copyCarnet(this);
+    }
 
     public void copyCarnet(Carnet carnet) {
-        IndexGenerator.getInstance().reset();
         Cover newCover = carnet.getCoverPage();
         Cover thisCover = this.getCoverPage();
         thisCover.setTitle(newCover.getTitle());
@@ -74,9 +84,12 @@ public class Carnet extends SujetObserve{
     public void export(String filePath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+        // checks if file has .json suffix to avoid repetitions
+        String fileName = (filePath.endsWith(".json")) ? filePath : (filePath + ".json");
         // Converts Java object to File
-        try (Writer writer = new FileWriter(filePath + ".json")) {
+        try (Writer writer = new FileWriter(fileName)) {
             gson.toJson(this, writer);
+            saveCarnetImage();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -92,7 +105,7 @@ public class Carnet extends SujetObserve{
 
             // switch to the imported carnet
             copyCarnet(carnet);
-
+            saveCarnetImage();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
