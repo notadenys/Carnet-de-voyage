@@ -18,7 +18,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -201,25 +200,21 @@ public class DayPageController implements Observateur {
      * sets specific image on arrows dependent on the conditions
      */
     private void setArrows() {
-        try {
-            Image leftArrowImage = new Image(new FileInputStream("src/ressources/img/left-arrow.png"));
-            leftArrow.setImage(leftArrowImage);
+        Image leftArrowImage = new Image("img/left-arrow.png");
+        leftArrow.setImage(leftArrowImage);
 
-            Image rightArrowImage;
-            DayPage page = (carnet.getCurrentPage());
-            if (carnet.getCurrentPageNb() == carnet.getNbPages()) {
-                if (page.equals(DayPage.newPage)) {
-                    rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow-disabled.png"));
-                } else {
-                    rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow-add.png"));
-                }
+        Image rightArrowImage;
+        DayPage page = (carnet.getCurrentPage());
+        if (carnet.getCurrentPageNb() == carnet.getNbPages()) {
+            if (page.equals(DayPage.newPage)) {
+                rightArrowImage = new Image("img/right-arrow-disabled.png");
             } else {
-                rightArrowImage = new Image(new FileInputStream("src/ressources/img/right-arrow.png"));
+                rightArrowImage = new Image("img/right-arrow-add.png");
             }
-            rightArrow.setImage(rightArrowImage);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } else {
+            rightArrowImage = new Image("img/right-arrow.png");
         }
+        rightArrow.setImage(rightArrowImage);
     }
 
     @Override

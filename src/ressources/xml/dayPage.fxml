@@ -153,15 +153,15 @@
          <children>
             <GridPane alignment="CENTER" prefWidth="48.0" GridPane.columnIndex="1">
               <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="160.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="pageNumber" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="150.0" GridPane.columnIndex="1">
+                  <Label fx:id="pageNumber" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="103.0" prefWidth="158.0" GridPane.columnIndex="1">
                      <font>
                         <Font name="Chilanka Regular" size="70.0" />
                      </font>
