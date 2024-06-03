@@ -1,109 +1,184 @@
 @startuml
 
-abstract class carnet.Page{
-- int nbPage
+package controller {
+    class CoverController implements Observateur {
+            - TextField title
+            - DatePicker startDatePicker
+            - DatePicker endDatePicker
+            - TextField author
+            - TextArea participants
+            - Label pageNumber
+            - ImageView leftArrow
+            - ImageView rightArrow
+            - ImageView newCarnet
+            - ImageView loadCarnet
+            - VBox background
+            - Stage stage
+            - Carnet carnet
+            --
+            + CoverController(Stage stage, Carnet carnet)
+            + void initialize()
+            + void turnPageRight()
+            + void setMinDate()
+            + void setMaxDate()
+            + void load()
+            + void createNew()
+            + void reagir()
+            - void savePage()
+            - short verifyCarnet()
+            - void loadCarnet()
+            - void export()
+            - void switchScenes()
+    }
 
-+ int getNbPage()
-+ void setNbPage()
+    class DayPageController implements Observateur {
+            - TextField title
+            - TextArea description
+            - Button imgButton
+            - Rectangle photo
+            - Label pageNumber
+            - ImageView leftArrow
+            - ImageView rightArrow
+            - Slider emotions
+            - ImageView home
+            - ImageView export
+            - VBox background
+            - Stage stage
+            - Carnet carnet
+            --
+            + DayPageController(Stage stage, Carnet carnet)
+            + void initialize() throws FileNotFoundException
+            + void openImage()
+            + void checkArrows()
+            + void turnPageLeft()
+            + void turnPageRight()
+            + void goToCover()
+            + void export()
+            + void reagir()
+            - void savePage()
+            - void switchScenes()
+            - void setPhoto(String photoURL)
+            - void setArrows()
+    }
+
+    interface Observateur {
+        + void reagir()
+    }
 }
 
-class carnet.DayPage extends carnet.Page{
-- String title
-- String text
+package carnet {
+    class Cover extends Page {
+            - String title
+            - String startDate
+            - String endDate
+            - String author
+            - String participants
+            --
+            + Cover()
+            + String getAuthor()
+            + void setAuthor(String author)
+            + String getParticipants()
+            + void setParticipants(String participants)
+            + String getTitle()
+            + void setTitle(String title)
+            + LocalDate getStartDate()
+            + void setStartDate(LocalDate startDate)
+            + LocalDate getEndDate()
+            + void setEndDate(LocalDate endDate)
+            + void emptyStartDate()
+            + void emptyEndDate()
+            + boolean equals(Object o)
+    }
 
-+ String getTitle
-+ String getText
+    abstract class Page {
+            - final int nbPage
+            --
+            + Page(int nbPage)
+            + int getNbPage()
+    }
+
+    class SujetObserve {
+            - transient final ArrayList<Observateur> observers
+            --
+            + SujetObserve()
+            + void addObserver(Observateur o)
+            + void notifyObservers()
+    }
+
+    class Carnet extends SujetObserve {
+            - final Cover cover
+            - ArrayList<DayPage> pages
+            - int currentPage
+            - Carnet savedCarnetImage
+            --
+            + Carnet()
+            + void nextPage()
+            + void previousPage()
+            + void createPage()
+            + void setCurrentPage(int page)
+            + int getCurrentPageNb()
+            + int getNbPages()
+            + DayPage getCurrentPage()
+            + Cover getCover()
+            + ArrayList<DayPage> getPages()
+            + boolean isNew()
+            + boolean isSaved()
+            + void saveCarnetImage()
+            + void copyCarnet(Carnet carnet)
+            + void export(String filePath)
+            + void importCarnet(String filePath)
+            + boolean equals(Object obj)
+            + String toString()
+    }
+
+    class DayPage extends Page {
+            - String title
+            - String text
+            - String photo
+            - int emotions
+            --
+            + static final DayPage newPage
+            --
+            + DayPage(int nbPage)
+            + void setPhoto(String photo)
+            + void setTitle(String title)
+            + void setText(String text)
+            + String getTitle()
+            + String getText()
+            + String getPhoto()
+            + int getEmotions()
+            + void setEmotions(int emotions)
+            + boolean equals(DayPage p)
+    }
 }
 
-class carnet.Cover extends carnet.Page{
-- List collaborators
-- String author
+package outils {
+    class DateChecker {
+            - DateChecker()
+            --
+            + static void setBeginDateBounds(DatePicker begin_date, LocalDate end_date)
+            + static void setEndDateBounds(DatePicker end_date, LocalDate begin_date)
+    }
 
-+ void setAuthor()
-+ void addColaborator()
+    class FontResizer {
+        -FontResizer()
+        --
+        +static void adjustFontSize(TextField, double, double)
+        +static double calculateFontSize(String, double, double, double)
+    }
 }
 
-class carnet.CarnetDeVoyage extends carnet.SujetObserve{
-- String name
-- String date
-
-+ void addPage()
-+ void deletePage()
-+ String getName()
-+ String getDate()
-+ void export()
-+ int getNbPages()
+class Main extends Application {
+    --
+    + void start(Stage stage)
 }
 
-class carnet.SujetObserve{
-+ void ajouterObservateur(Observateur)
-+ void notifierObservateurs()
-}
+controller.CoverController --"1" carnet.Cover
+controller.CoverController --"1" carnet.Carnet
+controller.DayPageController --"1" carnet.Carnet
+controller.DayPageController --"*" carnet.DayPage
+carnet.Carnet --o carnet.Page
+carnet.SujetObserve --"*" controller.Observateur
 
-class carnet.Application extends carnet.SujetObserve
-{
-+ void addCarnet()
-+ void deleteCarnet()
-+ void loadCarnet()
-+ void editCarnet()
-+ int getNbPages()
-}
-
-
-
-interface controller.Observateur{ 
-+ void reagir()
-}
-
-class controller.AppController implements controller.Observateur
-{
-- Text title
-- Image add
-- Image import
-- Image edit
-- Image delete
-- Hbox carnet
-- Image select
-
-- int currentPage
-
-+ void reagir()
-+ int getCurrentPage()
-}
-
-class controller.CoverController implements controller.Observateur
-{
-- Text text
-- Image left
-- Image right
-- Image home
-- Image export
-
-+ void reagir()
-}
-
-class controller.DayPageController implements controller.Observateur
-{
-- Text text
-- Image left
-- Image right
-- Image home
-- Image export
-
-- int currentPage
-
-
-+ void reagir()
-+ int getCurrentPage()
-}
-
-
-CarnetDeVoyage --"1" Cover
-CarnetDeVoyage --"*" DayPage
-Application --"*" CarnetDeVoyage
-SujetObserve --"*" Observateur
-CoverController --"1" Cover
-DayPageController --"1" DayPage
-AppController --"1" Application
 
 @enduml
