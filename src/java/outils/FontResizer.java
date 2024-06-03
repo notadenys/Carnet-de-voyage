@@ -7,9 +7,13 @@ import javafx.scene.text.Text;
 public class FontResizer {
     private FontResizer(){}
 
-    public static void adjustFontSize(TextField textField) {
-        double minFontSize = 20.0; // Minimum allowed font size
-        double maxFontSize = 150.0; // Maximum allowed font size
+    /**
+     * Adjusts font size based on the TextField width
+     * @param textField TextField that is being changed
+     * @param minFontSize font size won't get smaller than this point
+     * @param maxFontSize font size won't get bigger than this point
+     */
+    public static void adjustFontSize(TextField textField, double minFontSize, double maxFontSize) {
         double width = textField.getWidth();
 
         double targetFontSize = calculateFontSize(textField.getText(), width, minFontSize, maxFontSize);
@@ -17,6 +21,14 @@ public class FontResizer {
         textField.setFont(Font.font(textField.getFont().getName(), targetFontSize));
     }
 
+    /**
+     * Allows to calculate the font size based on the TextField width
+     * @param text String to calculate the size
+     * @param maxWidth maximal width of the TextField
+     * @param minFontSize font size won't get smaller than this point
+     * @param maxFontSize font size won't get bigger than this point
+     * @return calculated font size
+     */
     private static double calculateFontSize(String text, double maxWidth, double minFontSize, double maxFontSize) {
         if (text.isEmpty()) {
             return maxFontSize; // Return minimum font size for empty text

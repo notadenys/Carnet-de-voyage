@@ -67,9 +67,8 @@ public class CoverController implements Observateur{
 
         pageNumber.setText("1/" + carnet.getNbPages());
 
-        title.textProperty().addListener((observable, oldValue, newValue) -> adjustFontSize(title));
-        title.widthProperty().addListener((observable, oldValue, newValue) -> adjustFontSize(title));
-        adjustFontSize(title);
+        title.textProperty().addListener((observable, oldValue, newValue) -> adjustFontSize(title, 20, 150));
+        adjustFontSize(title, 20, 150);
     }
 
 
@@ -191,7 +190,7 @@ public class CoverController implements Observateur{
         if (carnet.getCurrentPageNb() == 1) {
             Cover cover = carnet.getCover();
             title.setText(cover.getTitle());
-            adjustFontSize(title);
+            adjustFontSize(title, 20, 150);
             author.setText(cover.getAuthor());
             participants.setText(cover.getParticipants());
             pageNumber.setText("1/" + carnet.getNbPages());
