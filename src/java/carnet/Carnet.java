@@ -92,7 +92,7 @@ public class Carnet extends SujetObserve{
     public boolean isSaved() { return this.equals(savedCarnetImage); }
 
     /**
-     *
+     * save an image of a carnet to compare it when this one is changed
      */
     public void saveCarnetImage() {
         // to avoid infinite loop in a constructor
@@ -103,6 +103,10 @@ public class Carnet extends SujetObserve{
         savedCarnetImage.copyCarnet(this);
     }
 
+    /**
+     * copies a given carnet into this one
+     * @param carnet to copy from
+     */
     public void copyCarnet(Carnet carnet) {
         Cover newCover = carnet.getCover();
         Cover thisCover = this.getCover();
@@ -125,6 +129,10 @@ public class Carnet extends SujetObserve{
         notifyObservers();
     }
 
+    /**
+     * export to JSON
+     * @param filePath path to export folder and a filename
+     */
     public void export(String filePath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -139,6 +147,10 @@ public class Carnet extends SujetObserve{
         }
     }
 
+    /**
+     * read from JSON
+     * @param filePath path to the source file
+     */
     public void importCarnet(String filePath) {
         // default compact print
         Gson gson = new Gson();

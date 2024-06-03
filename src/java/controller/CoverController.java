@@ -55,6 +55,9 @@ public class CoverController implements Observateur{
         carnet.addObserver(this);
     }
 
+    /**
+     * to set everything up before rendering
+     */
     @FXML
     private void initialize() {
         Platform.runLater( () -> background.requestFocus());  // to not highlight the title
@@ -92,11 +95,17 @@ public class CoverController implements Observateur{
         carnet.notifyObservers();
     }
 
+    /**
+     * to set date contraints when button on the datepicker is pressed
+     */
     @FXML
     public void setMinDate() {
         DateChecker.setEndDateBounds(endDatePicker, startDatePicker.getValue());
     }
 
+    /**
+     * to set date contraints when button on the datepicker is pressed
+     */
     @FXML
     public void setMaxDate() {
         DateChecker.setBeginDateBounds(startDatePicker, endDatePicker.getValue());
@@ -118,6 +127,9 @@ public class CoverController implements Observateur{
         }
     }
 
+    /**
+     * call to loadCarnet to read from JSON
+     */
     @FXML
     public void load() {
         short saveBeforeImport = verifyCarnet();
@@ -129,6 +141,9 @@ public class CoverController implements Observateur{
         }
     }
 
+    /**
+     * select a JSON file and read from it
+     */
     private void loadCarnet() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose a JSON file");
@@ -139,6 +154,9 @@ public class CoverController implements Observateur{
         }
     }
 
+    /**
+     * create a new carnet
+     */
     @FXML
     public void createNew() {
         short saveBeforeNew = verifyCarnet();
@@ -151,6 +169,10 @@ public class CoverController implements Observateur{
         Platform.runLater( () -> background.requestFocus());
     }
 
+    /**
+     * check if saving the carnet to a file is necessary and call a dialog window
+     * @return 1 to save, 0 to continue without saving, -1 to cancel
+     */
     private short verifyCarnet() {
         savePage();
         if (!carnet.isNew() && !carnet.isSaved()) {
@@ -176,6 +198,9 @@ public class CoverController implements Observateur{
         return 0;
     }
 
+    /**
+     * select a location to write
+     */
     private void export() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose an location");
@@ -186,6 +211,9 @@ public class CoverController implements Observateur{
         }
     }
 
+    /**
+     * sets a new scene to show
+     */
     private void switchScenes() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/xml/dayPage.fxml"));

@@ -91,6 +91,9 @@ public class DayPageController implements Observateur {
         setArrows();
     }
 
+    /**
+     * call to setArrows to change an image on arrows if needed
+     */
     @FXML
     public void checkArrows() {
         savePage();
@@ -138,6 +141,9 @@ public class DayPageController implements Observateur {
         carnet.notifyObservers();
     }
 
+    /**
+     * return to the cover page
+     */
     @FXML
     public void goToCover() {
         savePage();
@@ -146,6 +152,9 @@ public class DayPageController implements Observateur {
         carnet.notifyObservers();
     }
 
+    /**
+     * export to JSON
+     */
     @FXML
     public void export() {
         savePage();
@@ -168,6 +177,9 @@ public class DayPageController implements Observateur {
         dayPage.setEmotions((int) emotions.getValue());
     }
 
+    /**
+     * sets a new scene to show
+     */
     private void switchScenes() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/xml/cover.fxml"));
