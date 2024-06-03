@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import outils.DateChecker;
@@ -19,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
+
+import static outils.FontResizer.adjustFontSize;
 
 public class CoverController implements Observateur{
     @FXML
@@ -65,28 +66,12 @@ public class CoverController implements Observateur{
         });
 
         pageNumber.setText("1/" + carnet.getNbPages());
-        adjustFontSize();
+
+        title.textProperty().addListener((observable, oldValue, newValue) -> adjustFontSize(title));
+        title.widthProperty().addListener((observable, oldValue, newValue) -> adjustFontSize(title));
+        adjustFontSize(title);
     }
 
-
-    @FXML
-    private void adjustFontSize() {
-        double maxWidth = title.getWidth();
-        double minFontSize = 20.0; // Minimum allowed font size
-        double maxFontSize = 150.0; // Maximum allowed font size
-
-        // Calculate target font size based on text length
-        double targetFontSize = Math.max(minFontSize, calculateFontSize(title.getText(), maxWidth));
-        // Gradually adjust font size towards the target
-        double currentFontSize = title.getFont().getSize();
-        double adjustment = (targetFontSize - currentFontSize) / 3.8; // Adjust in steps of 0.2
-
-        title.setFont(Font.font(title.getFont().getName(), Math.min(currentFontSize + adjustment, maxFontSize)));
-    }
-
-    private double calculateFontSize(String text, double maxWidth) {
-        return maxWidth / Math.abs(text.length() - 3);
-    }
 
     /**
      * saves current page and either goes to next or creates a new page
@@ -127,7 +112,14 @@ public class CoverController implements Observateur{
 
     @FXML
     public void load() {
-        verifyCarnet();
+        //verifyCarnet();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose a JSON file");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            carnet.importCarnet(file.getPath());
+        }
     }
 
     @FXML
@@ -199,6 +191,7 @@ public class CoverController implements Observateur{
         if (carnet.getCurrentPageNb() == 1) {
             Cover cover = carnet.getCover();
             title.setText(cover.getTitle());
+            adjustFontSize(title);
             author.setText(cover.getAuthor());
             participants.setText(cover.getParticipants());
             pageNumber.setText("1/" + carnet.getNbPages());

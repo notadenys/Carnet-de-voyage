@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import outils.IndexGenerator;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.time.LocalDate;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Carnet extends SujetObserve{
@@ -86,7 +83,19 @@ public class Carnet extends SujetObserve{
     }
 
     public void importCarnet(String filePath) {
+        // default compact print
+        Gson gson = new Gson();
 
+        try (Reader reader = new FileReader(filePath)) {
+            // Convert JSON File to Java Object
+            Carnet carnet = gson.fromJson(reader, Carnet.class);
+
+            // switch to the imported carnet
+            copyCarnet(carnet);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -111,5 +120,11 @@ public class Carnet extends SujetObserve{
         }
 
         return getCover().equals(carnet.getCover());
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(this);
     }
 }
