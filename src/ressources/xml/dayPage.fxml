@@ -153,21 +153,27 @@
          <children>
             <GridPane alignment="CENTER" prefWidth="48.0" GridPane.columnIndex="1">
               <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="160.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="45.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="210.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="45.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="pageNumber" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="103.0" prefWidth="158.0" GridPane.columnIndex="1">
+                  <Label fx:id="pageNumber" alignment="TOP_CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="210.0" GridPane.columnIndex="1">
                      <font>
                         <Font name="Chilanka Regular" size="70.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="rightArrow" fitHeight="45.0" fitWidth="50.0" onMouseClicked="#turnPageRight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="leftArrow" fitHeight="45.0" fitWidth="50.0" onMouseClicked="#turnPageLeft" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="rightArrow" fitHeight="45.0" fitWidth="50.0" onMouseClicked="#turnPageRight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="-10.0" />
+                     </GridPane.margin></ImageView>
+                  <ImageView fx:id="leftArrow" fitHeight="45.0" fitWidth="50.0" onMouseClicked="#turnPageLeft" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets right="-10.0" />
+                     </GridPane.margin></ImageView>
                </children>
             </GridPane>
             <ImageView fx:id="home" fitHeight="71.0" fitWidth="62.0" onMouseClicked="#goToCover" pickOnBounds="true" preserveRatio="true">

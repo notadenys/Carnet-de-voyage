@@ -17,7 +17,8 @@ public class Carnet extends SujetObserve{
         super();
         cover = new Cover();
         pages = new ArrayList<>();
-        pages.add(new DayPage(2));
+        createPage();
+
         currentPage = 1;
         savedCarnetImage = null;
     }
