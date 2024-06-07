@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Carnet extends SujetObserve{
     private final Cover cover;
-    private ArrayList<DayPage> pages;
+    private final ArrayList<DayPage> pages;
     private int currentPage;
     private Carnet savedCarnetImage;
 
@@ -90,7 +90,12 @@ public class Carnet extends SujetObserve{
     /**
      * @return true if diary is saved after last modification, false otherwise
      */
-    public boolean isSaved() { return this.equals(savedCarnetImage); }
+    public boolean isSaved() {
+        if (savedCarnetImage == null) {
+            return false;
+        }
+        return this.equals(savedCarnetImage);
+    }
 
     /**
      * save an image of a carnet to compare it when this one is changed
@@ -126,7 +131,10 @@ public class Carnet extends SujetObserve{
         }
         thisCover.setParticipants(newCover.getParticipants());
 
-        this.pages = carnet.getPages();
+        this.pages.clear();
+        for (DayPage dayPage : carnet.getPages()) {
+            pages.add(new DayPage(dayPage));
+        }
         notifyObservers();
     }
 
@@ -182,13 +190,13 @@ public class Carnet extends SujetObserve{
             for (DayPage otherPage : carnet.getPages()) {
                 if (page.equals(otherPage)) {
                     found = true;
+                    break;
                 }
             }
             if (!found) {
                 return false;
             }
         }
-
         return getCover().equals(carnet.getCover());
     }
 

@@ -61,6 +61,7 @@ public class CoverController implements Observateur{
     @FXML
     private void initialize() {
         Platform.runLater( () -> background.requestFocus());  // to not highlight the title
+
         stage.setOnCloseRequest(e -> {
             e.consume();
             short saveBeforeExit = verifyCarnet();
@@ -163,8 +164,10 @@ public class CoverController implements Observateur{
         if (saveBeforeNew == 1) {
             export();
             carnet.copyCarnet(new Carnet());
+            carnet.saveCarnetImage();
         } else if (saveBeforeNew == 0) {
             carnet.copyCarnet(new Carnet());
+            carnet.saveCarnetImage();
         }
         Platform.runLater( () -> background.requestFocus());
     }
@@ -247,6 +250,7 @@ public class CoverController implements Observateur{
             } else {
                 DateChecker.setBeginDateBounds(startDatePicker, LocalDate.MAX);
                 startDatePicker.getEditor().clear();
+                startDatePicker.setValue(null);
             }
             if (cover.getEndDate() != null) {
                 endDatePicker.setValue(cover.getEndDate());
@@ -254,6 +258,7 @@ public class CoverController implements Observateur{
             } else {
                 DateChecker.setEndDateBounds(endDatePicker, LocalDate.MIN);
                 endDatePicker.getEditor().clear();
+                endDatePicker.setValue(null);
             }
         }
     }

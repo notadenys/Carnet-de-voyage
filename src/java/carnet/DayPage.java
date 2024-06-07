@@ -16,6 +16,14 @@ public class DayPage extends Page{
         emotions = 0;
     }
 
+    public DayPage(DayPage page) {
+        super(page.getNbPage());
+        title = page.getTitle();
+        text = page.getText();
+        photo = page.getPhoto();
+        emotions = page.getEmotions();
+    }
+
     /**
      * Puts URL of a photo in corresponding field
      * @param photo URL of a photo
